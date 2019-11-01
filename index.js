@@ -119,7 +119,7 @@ server.put('/projects/:id', (req, res) => {
       .catch(error => {
         console.log(error);
         res.status(500).json({
-          message: "The user information could not be modified.",
+          message: "The project information could not be modified.",
         });
       });
 });
@@ -134,15 +134,47 @@ server.put('/projects/:id/actions/:id', (req, res) => {
         if (user) {
           res.status(200).json(user);
         } else {
-          res.status(404).json({ message: "The user with the specified ID does not exist." });
+          res.status(404).json({ message: "The action with the specified ID does not exist." });
         }
       })
       .catch(error => {
         console.log(error);
         res.status(500).json({
-          message: "The user information could not be modified.",
+          message: "The action information could not be modified.",
         });
       });
+});
+
+server.delete('/projects/:id', (req, res) => {
+    console.log(req.params.id)
+    Projects.remove(req.params.id)
+    .then(project => {
+        if (project) {
+        res.status(200).json({ message: "Project deleted"});
+        } else {
+            res.status(404).json({ message: "The project with the specified ID does not exist."})
+    }
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(500).json({ message: "The project could not be removed"})
+    });
+});
+
+server.delete('/projects/:id/actions/:id', (req, res) => {
+    console.log(req.params.id)
+    Actions.remove(req.params.id)
+    .then(action => {
+        if (action) {
+        res.status(200).json({ message: "Action deleted"});
+        } else {
+            res.status(404).json({ message: "The Action with the specified ID does not exist."})
+    }
+    })
+    .catch(error => {
+        console.log(error);
+        res.status(500).json({ message: "The Action could not be removed"})
+    });
 });
 
 const port = 8888;
