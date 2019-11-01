@@ -103,5 +103,47 @@ server.post('/projects/:id/actions', (req, res) => {
         });
 });
 
+server.put('/projects/:id', (req, res) => {
+    if (!Object.keys(req.body).includes("name") || !Object.keys(req.body).includes("description")){
+        return res.status(400).json({ errorMessage: "Please provide a name and description for the project." })
+    }
+    const newInfo = req.body;
+    Projects.update(req.params.id, newInfo)
+      .then(user => {
+        if (user) {
+          res.status(200).json(user);
+        } else {
+          res.status(404).json({ message: "The project with the specified ID does not exist." });
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        res.status(500).json({
+          message: "The user information could not be modified.",
+        });
+      });
+});
+
+server.put('/projects/:id/actions/:id', (req, res) => {
+    if (!Object.keys(req.body).includes("description") || !Object.keys(req.body).includes("notes")){
+        return res.status(400).json({ errorMessage: "Please provide a description and notes for the action." })
+    }
+    const newInfo = req.body;
+    Actions.update(req.params.id, newInfo)
+      .then(user => {
+        if (user) {
+          res.status(200).json(user);
+        } else {
+          res.status(404).json({ message: "The user with the specified ID does not exist." });
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        res.status(500).json({
+          message: "The user information could not be modified.",
+        });
+      });
+});
+
 const port = 8888;
 server.listen(port, () => console.log(`\n=== API on port ${port} ===\n`));
