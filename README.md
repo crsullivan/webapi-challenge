@@ -26,13 +26,24 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+1: We can use it for routing, serving SPA's.
+2: We can use it to build web services, and we can tell those services to look for JSON.
+
 - [ ] Describe Middleware?
+
+Middleware are functions, and they are executed in the order they are put into the code. its a function that sits in the middle of two processes, saying "here, before you do that, do this". As a result of this functionality it can be used to authenticate, log data, etc.
 
 - [ ] Describe a Resource?
 
+A resource is a location an application can go to to retrieve or manipulate information.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+status code 200, 201, and/or  a straight up message saying "hey! we got your request and everything worked out, you're good to go". or something like that. i.e. json({ message: "message here"}).
+
 - [ ] How can we partition our application into sub-applications?
+
+With express routers, connecting smaller sub-files that are more specific.
 
 ## Project Setup
 

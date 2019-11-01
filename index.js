@@ -12,9 +12,7 @@ I need this code, just don't know where, perhaps should make some middleware, do
 
 Go code!
 */
-
 const express = require('express');
-const helmet = require('helmet');
 const morgan = require('morgan');
 
 const Projects = require('./data/helpers/projectModel');
@@ -23,7 +21,6 @@ const Actions = require('./data/helpers/actionModel');
 const server = express();
 server.use(express.json());
 
-server.use(helmet());
 server.use(morgan('dev'));
 
 server.get('/', (req, res) => {
@@ -96,6 +93,7 @@ server.post('/projects/:id/actions', (req, res) => {
     Actions.insert(act)
         .then(project => {
             res.status(201).json(project);
+            console.log(project)
         })
         .catch(error => {
             console.log(error);
